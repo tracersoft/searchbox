@@ -1,5 +1,6 @@
-:sparkles: :sparkles: Usage :sparkles: :sparkles: 
-----------------------------------------
+#Waldo
+
+### :sparkles: :sparkles: Usage :sparkles: :sparkles: 
 
 ```ruby
 class DummySearch < Waldo::Search
