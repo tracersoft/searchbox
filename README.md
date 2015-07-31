@@ -1,6 +1,13 @@
-#Waldo
+# Waldo
 
-### :sparkles: :sparkles: Usage :sparkles: :sparkles: 
+## INSTALL
+
+Gemfile
+```ruby
+gem 'waldo', github: 'tracersoft/waldo'
+```
+
+## USAGE
 
 ```ruby
 class DummySearch < Waldo::Search
