@@ -11,7 +11,7 @@ module Waldo
     def initialize(query)
       @query = query.to_s
       @scopes = self.class.scopes
-      @scanned_scopes = Scanner.scan(query, scopes_names)
+      @scanned_scopes = Scanner.scan(@query, scopes_names)
       @ar_relation = self.class.model_klass
       exec_scopes
       __setobj__(@ar_relation)
