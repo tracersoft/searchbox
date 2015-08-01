@@ -9,7 +9,7 @@ module Waldo
     attr_reader :scopes
 
     def initialize(query)
-      @query = query
+      @query = query.to_s
       @scopes = self.class.scopes
       @scanned_scopes = Scanner.scan(query, scopes_names)
       @ar_relation = self.class.model_klass
@@ -24,10 +24,9 @@ module Waldo
     private
     def exec_scopes
       @ar_relation = @scanned_scopes.reduce(@ar_relation) do |model, (scope, value)|
-        @scopes.select { |s| s.name == scope }.each do |s|
-          model = s.call(value, model)
+        @scopes.select { |s| s.name == scope }.reduce(model) do |m, s|
+          s.call(value, m)
         end
-        model
       end
     end
   end
