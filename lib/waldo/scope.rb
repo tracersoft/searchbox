@@ -13,7 +13,7 @@ module Waldo
 
       if @block.respond_to?(:call)
         model.instance_exec(value, &@block)
-      elsif model.respond_to?(@block)
+      elsif @block && model.respond_to?(@block)
         model.send(@block, value)
       elsif model.respond_to?(@name)
         model.send(@name, value)
@@ -32,14 +32,14 @@ module Waldo
     end
 
     def call(value, model)
-      if value == @criteria
+      if value.to_s == @criteria.to_s
         @value = true
         if @block.respond_to?(:call)
           model.instance_exec(value, &@block)
-        elsif model.respond_to?(@block)
-          model.send(@block, value)
         elsif model.respond_to?(@criteria)
           model.send(@criteria)
+        elsif @block && model.respond_to?(@block)
+          model.send(@block, value)
         else
           model
         end
