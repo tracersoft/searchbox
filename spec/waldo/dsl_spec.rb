@@ -8,7 +8,7 @@ describe Waldo::DSL do
         is :expected_to_be_called, -> {}
       end
 
-      expect(klass.scopes[:is]).to be_kind_of(Proc)
+      expect(klass.scopes[0][1]).to be_kind_of(Proc)
     end
   end
 end

@@ -7,8 +7,8 @@ module Waldo
 
     def initialize(query)
       @query = query
-      @scanned_scopes = Scanner.scan(query, self.class.scopes.keys)
       @scopes = self.class.scopes
+      @scanned_scopes = Scanner.scan(query, possible_scopes)
       @ar_relation = self.class.model_klass
       exec_scopes
       __setobj__(@ar_relation)
@@ -17,13 +17,18 @@ module Waldo
     private
     def exec_scopes
       @ar_relation = @scanned_scopes.reduce(@ar_relation) do |model, (scope, value)|
-        scope_block = @scopes[scope]
-        if scope_block.respond_to?(:call)
-          model.instance_exec(value, &scope_block)
-        else
-          model.send(scope, value)
+        @scopes.select { |s| s.first == scope }.each do |(s, b)|
+          if b.respond_to?(:call)
+            model.instance_exec(value, &b)
+          else
+            model.send(s, value)
+          end
         end
       end
+    end
+
+    def possible_scopes
+      @scopes.map { |s| s.first }.uniq
     end
   end
 end

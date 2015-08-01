@@ -3,11 +3,11 @@ module Waldo
     attr_reader :scopes, :model_klass
 
     def scopes
-      @scopes ||= {}
+      @scopes ||= []
     end
 
     def scope(name, block=nil)
-      scopes[name] = block
+      scopes << [name, block]
     end
 
     def model(model_klass)
@@ -16,7 +16,7 @@ module Waldo
 
     #builtin scopes
     def has(value, block=nil)
-      scopes[__callee__] = -> (actual_value) {
+      scope :has, -> (actual_value) {
         if value.to_s == actual_value.to_s
           if block.respond_to?(:call)
             self.instance_exec(&block)
