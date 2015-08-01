@@ -20,7 +20,7 @@ module Waldo
         @scopes.select { |s| s.first == scope }.each do |(s, b)|
           if b.respond_to?(:call)
             model.instance_exec(value, &b)
-          else
+          elsif model.respond_to?(s)
             model.send(s, value)
           end
         end
