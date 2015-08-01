@@ -2,7 +2,7 @@ module Waldo
   module ActiveRecordDSL
     def fields(*fields)
       fields.each do |f|
-        @scopes[f] = -> (v) {
+        scope f, -> (v) {
           where(f=>v)
         }
       end
