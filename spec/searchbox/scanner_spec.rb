@@ -35,5 +35,19 @@ describe Searchbox::Scanner do
         )
       end
     end
+
+    context 'full text composed value' do
+      let(:query) {
+        "from: joão@tracersoft.com.br name: 'João Futrica' são paulo"
+      }
+
+      it 'returns the correct token value' do
+        expect(scanner.scan).to include(
+          [:name, "João Futrica"],
+          [:fulltext, "são paulo"]
+        )
+      end
+    end
+
   end
 end
