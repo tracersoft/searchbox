@@ -21,8 +21,7 @@ class DummySearch < Searchbox::Search
 
   fields :email, :name #active-record only
 
-  is :active # if is:active is in the query, will execute the method:
-Dummy.active
+  is :active # if is:active is in the query, will execute the method: Dummy.active
   has :attachment, -> {
   }
 
