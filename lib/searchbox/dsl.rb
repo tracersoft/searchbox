@@ -31,11 +31,11 @@ module Searchbox
 
     module InstanceMethods
       def klass
-        self.class.klass
+        @klass ||= self.class.klass.dup
       end
 
       def scopes
-        self.class.scopes
+        @scopes ||= self.class.scopes.map(&:dup)
       end
 
       def scope_options

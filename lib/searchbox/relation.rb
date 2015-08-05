@@ -1,21 +1,22 @@
 module Searchbox
   class Relation
-    attr_reader :relation
+    attr_reader :relation, :scopes
 
-    def initialize(relation)
+    def initialize(relation, scopes)
       @relation = relation
+      @scopes = scopes
     end
 
     def method_missing(method, *args, &block)
       if @relation.respond_to?(method)
         ret = @relation.send(method, *args, &block)
         if ret.kind_of?(@relation.class)
-          Relation.new(ret)
+          Relation.new(ret, @scopes)
         else
           ret
         end
       else
-        raise NoMethodError
+        raise NoMethodError.new("Undefined method #{method} in #{self.class}", method, *args)
       end
     end
 

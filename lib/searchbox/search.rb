@@ -7,8 +7,7 @@ module Searchbox
       @query = query.to_s
       @scanned_scopes = Scanner.scan(@query, scope_options)
       @klass = klass
-      @scopes = scopes
-      super(exec_scopes)
+      super(exec_scopes, scopes)
     end
 
     private
