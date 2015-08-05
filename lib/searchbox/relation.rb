@@ -20,8 +20,8 @@ module Searchbox
       end
     end
 
-    def respond_to?(*args)
-      @relation.respond_to?(*args)
+    def respond_to_missing?(*args)
+      @relation.respond_to?(*args) || super
     end
   end
 end
