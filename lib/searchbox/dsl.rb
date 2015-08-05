@@ -1,13 +1,13 @@
-module Waldo
+module Searchbox
   module DSL
-    attr_reader :scopes, :model_klass
+    attr_reader :klass
 
     def scopes
-      @scopes ||= []
+      @scopes ||= [Scope.new(:fulltext)]
     end
 
-    def model(model_klass)
-      @model_klass = model_klass
+    def klass(klass)
+      @klass = klass
     end
 
     def scope(name, block=nil)
@@ -25,6 +25,20 @@ module Waldo
     private
     def add_scope(scope)
       scopes << scope
+    end
+
+    module InstanceMethods
+      def klass
+        self.class.klass
+      end
+
+      def scopes
+        self.class.scopes
+      end
+
+      def scope_options
+        scopes.map(&:name).uniq
+      end
     end
   end
 end

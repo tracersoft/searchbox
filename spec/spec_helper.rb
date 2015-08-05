@@ -2,4 +2,5 @@ require 'bundler/setup'
 Bundler.setup
 
 require 'rspec'
-require 'waldo'
+require 'searchbox'
+require 'pry'

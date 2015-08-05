@@ -1,4 +1,4 @@
-module Waldo
+module Searchbox
   module ActiveRecord
     module DSL
       def fields(*fields)
@@ -11,7 +11,7 @@ module Waldo
     end
   end
 
-  class Search
+  class Search < Relation
     extend ActiveRecord::DSL
   end
 end

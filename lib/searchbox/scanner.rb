@@ -1,4 +1,4 @@
-module Waldo
+module Searchbox
   class Scanner
     def self.scan(query, tokens)
       new(query, tokens).scan
@@ -12,7 +12,7 @@ module Waldo
     def scan
       tokens = []
       tokens << scan_token until @scanner.eos?
-      tokens
+      tokens.compact
     end
 
     private
@@ -32,16 +32,21 @@ module Waldo
     def scan_scope
       if token = @scanner.scan(tokens_regex)
         scan_space
-        value = @scanner.scan_until(/\S+/)
-        scan_space
-        [token.tr(':', '').to_sym, value]
+        value = @scanner.scan_until(/"([^"]+)"|'([^']+)'|\S+/)
+        if value
+          value.gsub!(/"|'/, '')
+          scan_space
+          [token.tr(':', '').to_sym, value]
+        end
       end
     end
 
     def scan_text
       if value = @scanner.scan_until(/\S+/)
         scan_space
-        [:fulltext, value]
+        unless value.empty?
+          [:fulltext, value]
+        end
       end
     end
   end

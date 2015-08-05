@@ -1,16 +1,16 @@
-# Waldo
+# Searchbox
 
 ## INSTALL
 
 Gemfile
 ```ruby
-gem 'waldo', github: 'tracersoft/waldo'
+gem 'searchbox', github: 'tracersoft/searchbox'
 ```
 
 ## USAGE
 
 ```ruby
-class DummySearch < Waldo::Search
+class DummySearch < Searchbox::Search
   model Dummy #scopes will execute in the model instance
 
   scope :fulltext, -> (text) {
@@ -35,4 +35,4 @@ end
 
 will parse
 
-`email: teste@waldo.com.br is:active Fulltextsearch`
+`email: teste@searchbox.com.br is:active Fulltextsearch`
