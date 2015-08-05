@@ -7,24 +7,22 @@ Gemfile
 gem 'searchbox', github: 'tracersoft/searchbox'
 ```
 
-## USAGE
+## GETTING STARTED
 
 ```ruby
 class DummySearch < Searchbox::Search
-  model Dummy #scopes will execute in the model instance
+  klass Dummy #scopes will execute in the class context
 
   scope :fulltext, -> (text) {
-    search_by_name(text)
+    search_by_name(text) # sameas Dummy.search_by_name(text)
   }
 
   scope :search_by_name
 
   fields :email, :name #active-record only
 
-  is :active, -> {
-    active
-  }
-
+  is :active # if is:active is in the query, will execute the method:
+Dummy.active
   has :attachment, -> {
   }
 

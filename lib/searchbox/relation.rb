@@ -1,5 +1,7 @@
 module Searchbox
   class Relation
+    attr_reader :relation
+
     def initialize(relation)
       @relation = relation
     end

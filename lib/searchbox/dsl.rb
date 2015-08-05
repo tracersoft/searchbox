@@ -1,13 +1,15 @@
 module Searchbox
   module DSL
-    attr_reader :klass
-
     def scopes
       @scopes ||= [Scope.new(:fulltext)]
     end
 
-    def klass(klass)
-      @klass = klass
+    def klass(klass=nil)
+      if klass
+        @klass = klass
+      else
+        @klass
+      end
     end
 
     def scope(name, block=nil)

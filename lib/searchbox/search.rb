@@ -13,7 +13,7 @@ module Searchbox
 
     private
     def exec_scopes
-      @klass = @scanned_scopes.reduce(@klass) do |klass, (scope, value)|
+      @scanned_scopes.reduce(@klass) do |klass, (scope, value)|
         scopes.select { |s| s.name == scope }.reduce(klass) do |k, s|
           s.call(value, k)
         end
