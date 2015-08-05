@@ -16,7 +16,7 @@ module Searchbox
           ret
         end
       else
-        raise NoMethodError.new("Undefined method #{method} in #{self.class}", method, *args)
+        raise NoMethodError.new("Undefined method #{method} in #{@relation.class}", method, *args)
       end
     end
 

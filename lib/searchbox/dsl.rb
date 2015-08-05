@@ -11,6 +11,8 @@ module Searchbox
         @klass
       end
     end
+    alias_method :model, :klass
+    alias_method :base, :klass
 
     def scope(name, block=nil)
       add_scope Scope.new(name, block)
