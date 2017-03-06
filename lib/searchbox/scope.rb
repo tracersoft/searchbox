@@ -12,11 +12,11 @@ module Searchbox
       @value = value
 
       if @block.respond_to?(:call)
-        relation.instance_exec(value, &@block)
+        relation.instance_exec(*value, &@block)
       elsif @block && relation.respond_to?(@block)
-        relation.send(@block, value)
+        relation.send(@block, *value)
       elsif relation.respond_to?(@name)
-        relation.send(@name, value)
+        relation.send(@name, *value)
       else
         relation
       end
@@ -33,7 +33,8 @@ module Searchbox
     end
 
     def call(value, relation)
-      if value.to_s == @criteria.to_s
+      if value[0].to_s == @criteria.to_s
+        binding.pry
         @value = true
         if @block.respond_to?(:call)
           relation.instance_exec(&@block)

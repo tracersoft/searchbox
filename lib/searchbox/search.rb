@@ -12,10 +12,30 @@ module Searchbox
 
     private
     def exec_scopes
-      @scanned_scopes.reduce(@klass) do |klass, (scope, value)|
-        scopes.select { |s| s.name == scope }.reduce(klass) do |k, s|
-          s.call(value, k)
+      @data = Hash.new
+
+      @scanned_scopes.each do |param, value|
+        @data[param] = value
+      end
+
+      scopes.select {|scope|
+        if scope.name.class == Array          
+          (@data.keys & scope.name).length == scope.name.length
+        else
+          @data.keys.index(scope.name)
         end
+      }.reduce(@klass) do |klass, scope|        
+        values = []
+        if scope.name.class == Array          
+          values = scope.name.map do |key|
+            @data[key] 
+          end
+        else
+          values << @data[scope.name]  
+        end
+        
+        binding.pry
+        scope.call(values, klass)
       end
     end
   end
