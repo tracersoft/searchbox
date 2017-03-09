@@ -34,7 +34,6 @@ module Searchbox
 
     def call(value, relation)
       if value[0].to_s == @criteria.to_s
-        binding.pry
         @value = true
         if @block.respond_to?(:call)
           relation.instance_exec(&@block)
