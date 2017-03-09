@@ -34,7 +34,6 @@ module Searchbox
           values << @data[scope.name]  
         end
         
-        binding.pry
         scope.call(values, klass)
       end
     end
